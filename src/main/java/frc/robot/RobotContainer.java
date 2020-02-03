@@ -28,6 +28,8 @@ public class RobotContainer {
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
 
+  XboxController controller = new XboxController(Constants.joystickPort);
+
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -47,6 +49,16 @@ public class RobotContainer {
     //Button button = new JoystickButton(joystick, buttonNumber); //buttons need a controller type, and button number based on that controller 
     //Joystick stick = new Joystick(Constants.joystickPort); // set to port 0 
     //new JoystickButton(joystick, buttonNumber).whenPressed(command);
+    
+//      // Grab the hatch when the 'A' button is pressed.
+//      new JoystickButton(m_driverController, Button.kA.value)
+//      .whenPressed(new GrabHatch(m_hatchSubsystem));
+//  // Release the hatch when the 'B' button is pressed.
+//  new JoystickButton(m_driverController, Button.kB.value)
+//      .whenPressed(new ReleaseHatch(m_hatchSubsystem));
+//  // While holding the shoulder button, drive at half speed
+//  new JoystickButton(m_driverController, Button.kBumperRight.value)
+//      .whenHeld(new HalveDriveSpeed(m_robotDrive));
 
 
 

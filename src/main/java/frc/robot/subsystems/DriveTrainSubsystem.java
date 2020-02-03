@@ -7,15 +7,31 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX; //add this library to the project 
 
+import edu.wpi.first.wpilibj.PWMVictorSPX;
+import edu.wpi.first.wpilibj.*;
+import frc.robot.commands.*;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
 import frc.robot.Constants;
 
 
 public class DriveTrainSubsystem extends SubsystemBase {
 
-  public WPI_TalonSRX leftMaster = new WPI_TalonSRX(Constants.leftMasterPort); //add this to project 
+  private PWMVictorSPX leftMaster = new PWMVictorSPX(Constants.leftMasterPort); //add this to project 
+  private PWMVictorSPX leftSlave = new PWMVictorSPX(Constants.leftSlavePort);
+  private PWMVictorSPX rightMaster = new PWMVictorSPX(Constants.rightMasterPort);
+  private PWMVictorSPX rightSlave = new PWMVictorSPX(Constants.rightSlavePort);
+
+  private SpeedControllerGroup leftControlGroup = new SpeedControllerGroup(leftMaster, leftSlave);
+  private SpeedControllerGroup rightControlGroup = new SpeedControllerGroup(rightMaster, rightSlave);
+
+  private DifferentialDrive baseDrive = new DifferentialDrive(leftControlGroup, rightControlGroup);
+
+  
+
 
 
   //testing gitj
@@ -30,5 +46,35 @@ public class DriveTrainSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    baseDrive.arcadeDrive(xSpeed, zRotation);
   }
+
+  // public DifferentialDrive getDrive () {
+  //   return this.baseDrive;
+  // }
+
+//   public void teleopDrive(XboxController xbox) {
+//     // tells the drive train to drive based on a joystick
+//     // the first parameter is speed, the second angle of turn
+//     // the third parameter enables squared inputs, which "decreases sensitivity at
+//     // low speeds
+//     if(Robot.m_oi.turboOn){
+//         System.err.printf("turbo");
+//         base_drive.arcadeDrive(
+//             -xbox.getY(Hand.kLeft),
+//             xbox.getX(Hand.kLeft)/1.5,
+//             true
+//         );
+//     }else{
+//         System.err.printf("slow");
+//         double DEFANG = 5;
+//         base_drive.arcadeDrive(
+//             xbox.getX(Hand.kRight)/DEFANG,
+//             xbox.getY(Hand.kRight)/DEFANG,
+//             false
+//         );
+//     }
+    
+// }
+
 }
