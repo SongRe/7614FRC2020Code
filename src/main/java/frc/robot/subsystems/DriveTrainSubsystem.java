@@ -43,10 +43,16 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   }
 
+  public void teleopDrive(double move, double turn) {
+    baseDrive.arcadeDrive(move, turn);
+  }
+
+
   @Override
   public void periodic() {
+    
     // This method will be called once per scheduler run
-    baseDrive.arcadeDrive(xSpeed, zRotation);
+    //baseDrive.arcadeDrive(xSpeed, zRotation);
   }
 
   // public DifferentialDrive getDrive () {

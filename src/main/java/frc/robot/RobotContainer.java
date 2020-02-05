@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.TeleopDriveCommand;
+import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -22,13 +24,21 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+  XboxController controller = new XboxController(Constants.joystickPort);
+
+
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final DriveTrainSubsystem driveTrain = new DriveTrainSubsystem();
 
+
+
+  //declare commands  
+  private final TeleopDriveCommand driveCommand = new TeleopDriveCommand(driveTrain, controller);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
 
-  XboxController controller = new XboxController(Constants.joystickPort);
+  
 
 
   /**
@@ -49,6 +59,12 @@ public class RobotContainer {
     //Button button = new JoystickButton(joystick, buttonNumber); //buttons need a controller type, and button number based on that controller 
     //Joystick stick = new Joystick(Constants.joystickPort); // set to port 0 
     //new JoystickButton(joystick, buttonNumber).whenPressed(command);
+
+    
+
+
+
+
     
 //      // Grab the hatch when the 'A' button is pressed.
 //      new JoystickButton(m_driverController, Button.kA.value)
@@ -75,4 +91,7 @@ public class RobotContainer {
     // An ExampleCommand will run in autonomous
     return m_autoCommand;
   }
+
+
+  
 }
