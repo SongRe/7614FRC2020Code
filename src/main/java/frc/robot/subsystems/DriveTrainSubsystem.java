@@ -34,7 +34,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
 
 
-  //testing gitj
+  
 
   /**
    * Creates a new DriveTrainSubsystem.
@@ -43,8 +43,10 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   }
 
-  public void teleopDrive(double move, double turn) {
-    baseDrive.arcadeDrive(move, turn);
+
+  //
+  public void teleopDrive(XboxController controller) {
+    baseDrive.arcadeDrive(controller.getY(Hand.kLeft), controller.getX(Hand.kLeft));
   }
 
 

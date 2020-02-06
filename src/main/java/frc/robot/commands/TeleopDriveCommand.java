@@ -10,6 +10,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrainSubsystem;
 
 /**
@@ -17,7 +18,8 @@ import frc.robot.subsystems.DriveTrainSubsystem;
  */
 public class TeleopDriveCommand extends CommandBase {
     private DriveTrainSubsystem d = new DriveTrainSubsystem();
-    private XboxController controller; 
+    private XboxController controller = new XboxController(Constants.joystickPort);
+    
 
 
     public TeleopDriveCommand(DriveTrainSubsystem driveSubsystem, XboxController c) {
@@ -36,9 +38,7 @@ public class TeleopDriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      double zSpeed = controller.getY(Hand.kLeft);
-      double rotation = controller.getX(Hand.kLeft);
-      d.teleopDrive(zSpeed, rotation );
+      d.teleopDrive(controller);
       
   }
 
