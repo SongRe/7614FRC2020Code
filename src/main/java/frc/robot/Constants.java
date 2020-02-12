@@ -26,6 +26,13 @@ public final class Constants {
 
     public static final int joystickPort = 0;
 
+    public static final int armPort = 5;
+    public static final int intakePort = 6;
+    public static final int climbPort = 7;
+
+
+
+
     //Multiple Modules, define both the port number and the module. For example:
     // public static int rangefinderPort = 1;
     // public static int rangefinderModule = 1;
