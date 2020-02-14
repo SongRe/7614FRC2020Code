@@ -10,10 +10,21 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.ArmLiftCommand;
+import frc.robot.commands.ArmLowerCommand;
+import frc.robot.commands.ArmStopCommand;
+import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.ExtendCommand;
+import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.IntakeStopCommand;
+import frc.robot.commands.OuttakeCommand;
 import frc.robot.commands.TeleopDriveCommand;
+import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -30,14 +41,37 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveTrainSubsystem driveTrain = new DriveTrainSubsystem();
+  private final ArmSubsystem arm = new ArmSubsystem();
+  private final IntakeSubsystem succThing = new IntakeSubsystem();
+  private final ClimbSubsystem climbingThing = new ClimbSubsystem();
+
 
 
 
   //declare commands  
   private final TeleopDriveCommand driveCommand = new TeleopDriveCommand(driveTrain, controller);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private final ArmLiftCommand liftArm = new ArmLiftCommand(arm);
+  private final ArmLowerCommand lowerArm = new ArmLowerCommand(arm);
+  private final ArmStopCommand stopArm = new ArmStopCommand(arm);
 
+  private final ClimbCommand climbCommand = new ClimbCommand(climbingThing);
+  private final ExtendCommand extendCommand = new ExtendCommand(climbingThing);
+  
+  private final IntakeCommand succIn = new IntakeCommand(succThing);
+  private final OuttakeCommand spitOut = new OuttakeCommand(succThing);
+  private final IntakeStopCommand stopSucc = new IntakeStopCommand(succThing);
+  
 
+  //Buttons 
+  JoystickButton armUpButton = (JoystickButton) new JoystickButton(controller, Constants.BUTTON_Y);
+ 
+  JoystickButton armDownButton = new JoystickButton(controller, Constants.BUTTON_A);
+
+  JoystickButton succButton   = new JoystickButton(controller, Constants.BUMPER_R);
+  JoystickButton spitButton   = new JoystickButton(controller, Constants.BUMPER_L);
+  JoystickButton extendButton = new JoystickButton(controller, Constants.TRIGGER_R);
+  JoystickButton climbButton = new JoystickButton(controller, Constants.TRIGGER_L);
   
 
 
@@ -59,15 +93,18 @@ public class RobotContainer {
     //Button button = new JoystickButton(joystick, buttonNumber); //buttons need a controller type, and button number based on that controller 
     //Joystick stick = new Joystick(Constants.joystickPort); // set to port 0 
     //new JoystickButton(joystick, buttonNumber).whenPressed(command);
+    armUpButton.whenPressed(liftArm);
+    armDownButton.whenPressed(lowerArm);
+    armUpButton.whenReleased(stopArm);
+    armDownButton.whenReleased(stopArm);
     
+    succButton.whenPressed(succIn);
+    spitButton.whenPressed(spitOut);
+    succButton.whenReleased(stopSucc);
+    spitButton.whenReleased(stopSucc);
 
-
-
-    
-
-
-
-
+    extendButton.whenPressed(extendCommand);
+    climbButton.whenPressed(climbCommand);
     
 //      // Grab the hatch when the 'A' button is pressed.
 //      new JoystickButton(m_driverController, Button.kA.value)

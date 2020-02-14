@@ -51,7 +51,20 @@ public final class Constants {
     //example: 
     // public static int driveSpeed = 100;
 
-
+   //xbox controller
+        // Digital
+        public static final int BUTTON_A = 1;
+        public static final int BUTTON_B = 2;
+        public static final int BUTTON_X = 3;
+        public static final int BUTTON_Y = 4; 
+        public static final int BUMPER_L = 5;
+        public static final int BUMPER_R = 6;
+    
+        // Analog
+        public static final int TRIGGER_R = 3;
+        public static final int TRIGGER_L = 4;
+		
+    
 
 
 
