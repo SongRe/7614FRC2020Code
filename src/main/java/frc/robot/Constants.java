@@ -18,17 +18,17 @@ import edu.wpi.first.wpilibj.Joystick;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final int leftMasterPort = 1; //left side of the drive train master motor
-    public static final int leftSlavePort = 2;  //left side of drive train slave motor (there are two motors per side of the drivetrain)
+    public static final int leftMasterPort = 7; //left side of the drive train master motor
+    public static final int leftSlavePort = 8;  //left side of drive train slave motor (there are two motors per side of the drivetrain)
 
-    public static final int rightMasterPort = 3;  //same thing but for right
-    public static final int rightSlavePort = 4;
+    public static final int rightMasterPort = 5;  //same thing but for right
+    public static final int rightSlavePort = 6;
 
     public static final int joystickPort = 0;
 
-    public static final int armPort = 5;
-    public static final int intakePort = 6;
-    public static final int climbPort = 7;
+    public static final int armPort = 12;
+    public static final int intakePort = 15;
+    public static final int climbPort = 3;
 
 
 
@@ -57,12 +57,11 @@ public final class Constants {
         public static final int BUTTON_B = 2;
         public static final int BUTTON_X = 3;
         public static final int BUTTON_Y = 4; 
-        public static final int BUMPER_L = 5;
-        public static final int BUMPER_R = 6;
+
     
-        // Analog
-        public static final int TRIGGER_R = 3;
-        public static final int TRIGGER_L = 4;
+        
+        public static final int TRIGGER_R = 6;
+        public static final int TRIGGER_L = 5;
 		
     
 

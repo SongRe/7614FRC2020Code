@@ -35,7 +35,7 @@ public class ExtendCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    c.stop();
+
   }
 
   // Returns true when the command should end.

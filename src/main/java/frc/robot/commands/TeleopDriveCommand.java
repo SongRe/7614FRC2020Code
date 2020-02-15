@@ -17,7 +17,7 @@ import frc.robot.subsystems.DriveTrainSubsystem;
  * Add your docs here.
  */
 public class TeleopDriveCommand extends CommandBase {
-    private DriveTrainSubsystem d = new DriveTrainSubsystem();
+    private DriveTrainSubsystem d;
     private XboxController controller = new XboxController(Constants.joystickPort);
     
 

@@ -14,6 +14,7 @@ import frc.robot.commands.ArmLiftCommand;
 import frc.robot.commands.ArmLowerCommand;
 import frc.robot.commands.ArmStopCommand;
 import frc.robot.commands.ClimbCommand;
+import frc.robot.commands.ClimbStopCommand;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ExtendCommand;
 import frc.robot.commands.IntakeCommand;
@@ -48,6 +49,7 @@ public class RobotContainer {
 
 
 
+
   //declare commands  
   private final TeleopDriveCommand driveCommand = new TeleopDriveCommand(driveTrain, controller);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
@@ -61,6 +63,7 @@ public class RobotContainer {
   private final IntakeCommand succIn = new IntakeCommand(succThing);
   private final OuttakeCommand spitOut = new OuttakeCommand(succThing);
   private final IntakeStopCommand stopSucc = new IntakeStopCommand(succThing);
+  private final ClimbStopCommand climbStop=new ClimbStopCommand(climbingThing);
   
 
   //Buttons 
@@ -68,8 +71,8 @@ public class RobotContainer {
  
   JoystickButton armDownButton = new JoystickButton(controller, Constants.BUTTON_A);
 
-  JoystickButton succButton   = new JoystickButton(controller, Constants.BUMPER_R);
-  JoystickButton spitButton   = new JoystickButton(controller, Constants.BUMPER_L);
+  JoystickButton succButton   = new JoystickButton(controller, Constants.BUTTON_B);
+  JoystickButton spitButton   = new JoystickButton(controller, Constants.BUTTON_X);
   JoystickButton extendButton = new JoystickButton(controller, Constants.TRIGGER_R);
   JoystickButton climbButton = new JoystickButton(controller, Constants.TRIGGER_L);
   
@@ -105,6 +108,8 @@ public class RobotContainer {
 
     extendButton.whenPressed(extendCommand);
     climbButton.whenPressed(climbCommand);
+    climbButton.whenReleased(climbStop);
+    extendButton.whenReleased(climbStop);
     
 //      // Grab the hatch when the 'A' button is pressed.
 //      new JoystickButton(m_driverController, Button.kA.value)
