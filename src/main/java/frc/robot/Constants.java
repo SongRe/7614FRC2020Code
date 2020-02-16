@@ -7,7 +7,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -18,17 +17,17 @@ import edu.wpi.first.wpilibj.Joystick;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final int leftMasterPort = 7; //left side of the drive train master motor
-    public static final int leftSlavePort = 8;  //left side of drive train slave motor (there are two motors per side of the drivetrain)
+    public static final int leftMasterPort = 16; //left side of the drive train master motor
+    public static final int leftSlavePort = 17;  //left side of drive train slave motor (there are two motors per side of the drivetrain)
 
-    public static final int rightMasterPort = 5;  //same thing but for right
-    public static final int rightSlavePort = 6;
+    public static final int rightMasterPort = 18;  //same thing but for right
+    public static final int rightSlavePort = 19;
 
     public static final int joystickPort = 0;
 
-    public static final int armPort = 12;
-    public static final int intakePort = 15;
-    public static final int climbPort = 3;
+    public static final int armPort = 1;
+    public static final int intakePort = 12;
+    public static final int climbPort = 7;
 
 
 

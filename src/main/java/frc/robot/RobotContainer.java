@@ -8,7 +8,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArmLiftCommand;
 import frc.robot.commands.ArmLowerCommand;
@@ -68,7 +67,7 @@ public class RobotContainer {
 
   //Buttons 
   JoystickButton armUpButton = (JoystickButton) new JoystickButton(controller, Constants.BUTTON_Y);
- 
+
   JoystickButton armDownButton = new JoystickButton(controller, Constants.BUTTON_A);
 
   JoystickButton succButton   = new JoystickButton(controller, Constants.BUTTON_B);
@@ -84,6 +83,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+    driveTrain.setDefaultCommand(driveCommand);
   }
 
   /**
