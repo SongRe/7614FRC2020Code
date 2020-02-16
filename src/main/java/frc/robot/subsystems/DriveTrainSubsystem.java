@@ -9,6 +9,9 @@ package frc.robot.subsystems;
 
 
 import edu.wpi.first.wpilibj.PWMVictorSPX;
+
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -18,10 +21,10 @@ import frc.robot.Constants;
 
 public class DriveTrainSubsystem extends SubsystemBase {
 
-  private PWMVictorSPX leftMaster = new PWMVictorSPX(Constants.leftMasterPort); //add this to project 
-  private PWMVictorSPX leftSlave = new PWMVictorSPX(Constants.leftSlavePort);
-  private PWMVictorSPX rightMaster = new PWMVictorSPX(Constants.rightMasterPort);
-  private PWMVictorSPX rightSlave = new PWMVictorSPX(Constants.rightSlavePort);
+  private WPI_VictorSPX leftMaster = new WPI_VictorSPX(Constants.leftMasterPort); //add this to project 
+  private WPI_VictorSPX leftSlave = new WPI_VictorSPX(Constants.leftSlavePort);
+  private WPI_VictorSPX rightMaster = new WPI_VictorSPX(Constants.rightMasterPort);
+  private WPI_VictorSPX rightSlave = new WPI_VictorSPX(Constants.rightSlavePort);
 
   private SpeedControllerGroup leftControlGroup = new SpeedControllerGroup(leftMaster, leftSlave);
   private SpeedControllerGroup rightControlGroup = new SpeedControllerGroup(rightMaster, rightSlave);
