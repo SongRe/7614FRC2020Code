@@ -14,7 +14,6 @@ import frc.robot.commands.ArmLowerCommand;
 import frc.robot.commands.ArmStopCommand;
 import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.ClimbStopCommand;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ExtendCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.IntakeStopCommand;
@@ -51,7 +50,6 @@ public class RobotContainer {
 
   //declare commands  
   private final TeleopDriveCommand driveCommand = new TeleopDriveCommand(driveTrain, controller);
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   private final ArmLiftCommand liftArm = new ArmLiftCommand(arm);
   private final ArmLowerCommand lowerArm = new ArmLowerCommand(arm);
   private final ArmStopCommand stopArm = new ArmStopCommand(arm);
@@ -133,8 +131,9 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+    return driveCommand;
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+
   }
 
 

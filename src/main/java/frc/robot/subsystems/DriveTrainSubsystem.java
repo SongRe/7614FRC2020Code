@@ -8,7 +8,6 @@
 package frc.robot.subsystems;
 
 
-import edu.wpi.first.wpilibj.PWMVictorSPX;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
