@@ -18,12 +18,14 @@ import frc.robot.commands.ExtendCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.IntakeStopCommand;
 import frc.robot.commands.OuttakeCommand;
+import frc.robot.commands.SpinCommand;
+import frc.robot.commands.SpinStopCommand;
 import frc.robot.commands.TeleopDriveCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.SpinSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -38,12 +40,11 @@ public class RobotContainer {
 
 
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveTrainSubsystem driveTrain = new DriveTrainSubsystem();
   private final ArmSubsystem arm = new ArmSubsystem();
   private final IntakeSubsystem succThing = new IntakeSubsystem();
   private final ClimbSubsystem climbingThing = new ClimbSubsystem();
-
+  private final SpinSubsystem spinny=new SpinSubsystem();
 
 
 
@@ -61,6 +62,9 @@ public class RobotContainer {
   private final OuttakeCommand spitOut = new OuttakeCommand(succThing);
   private final IntakeStopCommand stopSucc = new IntakeStopCommand(succThing);
   private final ClimbStopCommand climbStop=new ClimbStopCommand(climbingThing);
+
+  private final SpinStopCommand spinStop=new SpinStopCommand(spinny);
+  private final SpinCommand spinStart=new SpinCommand(spinny);
   
 
   //Buttons 
@@ -73,7 +77,7 @@ public class RobotContainer {
   JoystickButton extendButton = new JoystickButton(controller, Constants.TRIGGER_R);
   JoystickButton climbButton = new JoystickButton(controller, Constants.TRIGGER_L);
   
-
+  JoystickButton spinButton = new JoystickButton(controller, Constants.START);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -108,6 +112,9 @@ public class RobotContainer {
     climbButton.whenPressed(climbCommand);
     climbButton.whenReleased(climbStop);
     extendButton.whenReleased(climbStop);
+
+    spinButton.whenPressed(spinStart);
+    spinButton.whenReleased(spinStop);
     
 //      // Grab the hatch when the 'A' button is pressed.
 //      new JoystickButton(m_driverController, Button.kA.value)

@@ -28,6 +28,7 @@ public final class Constants {
     public static final int armPort = 0;
     public static final int intakePort = 3;
     public static final int climbPort = 5;
+    public static final int spinPort=8;
 
 
 
@@ -56,6 +57,9 @@ public final class Constants {
         public static final int BUTTON_B = 2;
         public static final int BUTTON_X = 3;
         public static final int BUTTON_Y = 4; 
+
+        public static final int START=8;
+        public static final int BACK=7;
 
     
         

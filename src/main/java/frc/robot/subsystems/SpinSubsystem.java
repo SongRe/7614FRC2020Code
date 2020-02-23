@@ -12,14 +12,12 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class IntakeSubsystem extends SubsystemBase {
-
-  WPI_VictorSPX motor = new WPI_VictorSPX(Constants.intakePort);
-
+public class SpinSubsystem extends SubsystemBase {
   /**
-   * Creates a new IntakeSubsystem.
+   * Creates a new SpinSubsystem.
    */
-  public IntakeSubsystem() {
+  private WPI_VictorSPX motor = new WPI_VictorSPX(Constants.spinPort);
+  public SpinSubsystem() {
 
   }
 
@@ -27,18 +25,12 @@ public class IntakeSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
-  /**
-   * Intake
-   */
-  public void succ() {
+
+  public void spin() {
     motor.set(0.5);
   }
-  /**
-   * Spit out the power cells
-   */
-  public void blow() {
-    motor.set(-0.5);
-  }
+
+
 
   public void stop() {
     motor.set(0);
