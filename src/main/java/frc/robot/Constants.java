@@ -17,20 +17,23 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final int leftMasterPort = 1; //left side of the drive train master motor
-    public static final int leftSlavePort = 2;  //left side of drive train slave motor (there are two motors per side of the drivetrain)
+    public static final int leftMasterPort = 0; //left side of the drive train master motor
+    public static final int leftSlavePort = 1;  //left side of drive train slave motor (there are two motors per side of the drivetrain)
 
     public static final int rightMasterPort = 4;  //same thing but for right
     public static final int rightSlavePort = 6;
 
     public static final int joystickPort = 0;
 
-    public static final int armPort = 0;
-    public static final int intakePort = 3;
-    public static final int climbPort = 5;
+    public static final int armPort = 2;
+    public static final int intakePort = 5;
+    public static final int climbPort = 3;
     public static final int spinPort=8;
 
-
+    public static final int leftEnc1 = 0;
+    public static final int leftEnc2 = 1;
+    public static final int rightEnc1 = 2;
+    public static final int rightEnc2 = 3;
 
 
     //Multiple Modules, define both the port number and the module. For example:

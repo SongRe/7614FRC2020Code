@@ -12,11 +12,13 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArmLiftCommand;
 import frc.robot.commands.ArmLowerCommand;
 import frc.robot.commands.ArmStopCommand;
+import frc.robot.commands.AutonomousCommand;
 import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.ClimbStopCommand;
 import frc.robot.commands.ExtendCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.IntakeStopCommand;
+import frc.robot.commands.AutonomousCommand;
 import frc.robot.commands.OuttakeCommand;
 import frc.robot.commands.SpinCommand;
 import frc.robot.commands.SpinStopCommand;
@@ -66,8 +68,8 @@ public class RobotContainer {
   private final SpinStopCommand spinStop=new SpinStopCommand(spinny);
   private final SpinCommand spinStart=new SpinCommand(spinny);
   
-
-  //Buttons 
+  private final AutonomousCommand autoCommand=new AutonomousCommand(arm,succThing,driveTrain);
+  //Buttons 2
   JoystickButton armUpButton = (JoystickButton) new JoystickButton(controller, Constants.BUTTON_Y);
 
   JoystickButton armDownButton = new JoystickButton(controller, Constants.BUTTON_A);
@@ -138,7 +140,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return driveCommand;
+    return autoCommand;
     // An ExampleCommand will run in autonomous
 
   }
