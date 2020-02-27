@@ -18,7 +18,7 @@ import frc.robot.commands.ClimbStopCommand;
 import frc.robot.commands.ExtendCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.IntakeStopCommand;
-import frc.robot.commands.AutonomousCommand;
+import frc.robot.commands.DriveForwardTimeoutCommand;
 import frc.robot.commands.OuttakeCommand;
 import frc.robot.commands.SpinCommand;
 import frc.robot.commands.SpinStopCommand;
@@ -68,7 +68,7 @@ public class RobotContainer {
   private final SpinStopCommand spinStop=new SpinStopCommand(spinny);
   private final SpinCommand spinStart=new SpinCommand(spinny);
   
-  private final AutonomousCommand autoCommand=new AutonomousCommand(arm,succThing,driveTrain);
+  private final DriveForwardTimeoutCommand autoCommand=new DriveForwardTimeoutCommand(driveTrain);
   //Buttons 2
   JoystickButton armUpButton = (JoystickButton) new JoystickButton(controller, Constants.BUTTON_Y);
 

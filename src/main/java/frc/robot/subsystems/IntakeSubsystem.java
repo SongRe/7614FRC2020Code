@@ -31,13 +31,13 @@ public class IntakeSubsystem extends SubsystemBase {
    * Intake
    */
   public void succ() {
-    motor.set(0.5);
+    motor.set(-0.5);
   }
   /**
    * Spit out the power cells
    */
   public void blow() {
-    motor.set(-0.5);
+    motor.set(0.5);
   }
 
   public void stop() {

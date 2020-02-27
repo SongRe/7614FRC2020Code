@@ -8,51 +8,37 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
 
+public class DriveForwardTimeoutCommand extends CommandBase {
 
-public class AutonomousCommand extends CommandBase {
+  DriveTrainSubsystem driveTrain;
   /**
-   * Creates a new AutonomousCommand.
+   * Creates a new DriveForwardTimeoutCommand.
    */
-  ArmSubsystem armSystem;
-  IntakeSubsystem intakeSystem;
-  DriveTrainSubsystem driveSystem;
+  public DriveForwardTimeoutCommand(DriveTrainSubsystem d) {
+    addRequirements(d);
 
-  public AutonomousCommand(ArmSubsystem armSubsystem, IntakeSubsystem intakeSubsystem, DriveTrainSubsystem driveSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(armSubsystem, intakeSubsystem, driveSubsystem);
-    armSystem = armSubsystem;
-    intakeSystem = intakeSubsystem;
-    driveSystem = driveSubsystem;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    driveTrain.stopDriving();
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //driveSystem.encReset();
-   
-    //how far you want it to go? Now i need actual measurements
-    //turn first so we can move on an angle
-    //driveSystem.driveToDistance(1);
-        
-    
-   
-    
+    driveTrain.tankDrive(0.5, 0.5);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    driveSystem.autoDrive(0,0);
-    driveSystem.stopDriving();
+    driveTrain.stopDriving();
   }
 
   // Returns true when the command should end.
