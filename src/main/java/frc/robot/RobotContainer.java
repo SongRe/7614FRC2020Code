@@ -85,7 +85,7 @@ public class RobotContainer {
   JoystickButton extendButton = new JoystickButton(controller, Constants.TRIGGER_R);
   JoystickButton climbButton = new JoystickButton(controller, Constants.TRIGGER_L);
   
-  JoystickButton spinButton = new JoystickButton(controller, Constants.START);
+  JoystickButton spinButton = new JoystickButton(controller, Constants.BUTTON_X);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
