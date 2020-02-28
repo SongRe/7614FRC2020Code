@@ -28,11 +28,11 @@ public class ClimbSubsystem extends SubsystemBase {
   }
 
   public void extend() {
-    motor.set(1);
+    motor.set(Constants.generalSpeed*2);
   }
 
   public void climb() {
-    motor.set(-1);
+    motor.set(Constants.generalSpeed * -2);
   }
 
   public void stop() {

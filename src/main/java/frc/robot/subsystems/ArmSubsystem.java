@@ -27,12 +27,12 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void lift() {
-    motor.set(0.5);
+    motor.set(Constants.armSpeed);
 
   }
 
   public void lower() {
-    motor.set(-0.5);
+    motor.set(Constants.armSpeed * -1);
   }
 
   public void stop() {

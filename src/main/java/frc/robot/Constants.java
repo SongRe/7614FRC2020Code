@@ -49,6 +49,9 @@ public final class Constants {
     //USB ports
 
     //Other constants
+    public static double intakeSpeed = 1;
+    public static double generalSpeed = 0.5;
+    public static double armSpeed = 0.5;
 
     //Constants
     //example: 

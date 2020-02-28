@@ -60,9 +60,9 @@ public class RobotContainer {
   private final ClimbCommand climbCommand = new ClimbCommand(climbingThing);
   private final ExtendCommand extendCommand = new ExtendCommand(climbingThing);
   
-  private final IntakeCommand succIn = new IntakeCommand(succThing);
-  private final OuttakeCommand spitOut = new OuttakeCommand(succThing);
-  private final IntakeStopCommand stopSucc = new IntakeStopCommand(succThing);
+  private final IntakeCommand intakeCommand = new IntakeCommand(succThing, controller);
+  //private final OuttakeCommand spitOut = new OuttakeCommand(succThing);
+  //private final IntakeStopCommand stopSucc = new IntakeStopCommand(succThing);
   private final ClimbStopCommand climbStop=new ClimbStopCommand(climbingThing);
 
   private final SpinStopCommand spinStop=new SpinStopCommand(spinny);
@@ -74,8 +74,8 @@ public class RobotContainer {
 
   JoystickButton armDownButton = new JoystickButton(controller, Constants.BUTTON_A);
 
-  JoystickButton succButton   = new JoystickButton(controller, Constants.BUTTON_B);
-  JoystickButton spitButton   = new JoystickButton(controller, Constants.BUTTON_X);
+  //JoystickButton succButton   = new JoystickButton(controller, Constants.BUTTON_B);
+  //JoystickButton spitButton   = new JoystickButton(controller, Constants.BUTTON_X);
   JoystickButton extendButton = new JoystickButton(controller, Constants.TRIGGER_R);
   JoystickButton climbButton = new JoystickButton(controller, Constants.TRIGGER_L);
   
@@ -88,6 +88,7 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
     driveTrain.setDefaultCommand(driveCommand);
+    succThing.setDefaultCommand(intakeCommand);
   }
 
   /**
@@ -105,10 +106,10 @@ public class RobotContainer {
     armUpButton.whenReleased(stopArm);
     armDownButton.whenReleased(stopArm);
     
-    succButton.whenPressed(succIn);
-    spitButton.whenPressed(spitOut);
-    succButton.whenReleased(stopSucc);
-    spitButton.whenReleased(stopSucc);
+    //succButton.whenPressed(succIn);
+    //spitButton.whenPressed(spitOut);
+    //succButton.whenReleased(stopSucc);
+    //spitButton.whenReleased(stopSucc);
 
     extendButton.whenPressed(extendCommand);
     climbButton.whenPressed(climbCommand);

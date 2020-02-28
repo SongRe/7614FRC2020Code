@@ -7,21 +7,14 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.Constants;
 
-public class IntakeCommand extends CommandBase {
-  IntakeSubsystem intakeSystem;
-  XboxController c;
+public class ToggleArmSpeedCommand extends CommandBase {
   /**
-   * Creates a new IntakeCommand.
+   * Creates a new ToggleArmSpeedCommand.
    */
-  public IntakeCommand(IntakeSubsystem intakeSystem, XboxController c) {
-    addRequirements(intakeSystem);
-    this.c = c;
-    this.intakeSystem = intakeSystem;
+  public ToggleArmSpeedCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -33,14 +26,11 @@ public class IntakeCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(c.getBumper(Hand.kRight)) {
-      intakeSystem.succ();
-    } else if(c.getBumper(Hand.kLeft)) {
-      intakeSystem.blow();
-    } else {
-      intakeSystem.stop();
+    if(Constants.armSpeed == 0.5) {
+      Constants.armSpeed = 0.2;
+    } else if (Constants.armSpeed == 0.2) {
+      Constants.armSpeed = 0.5;
     }
-
   }
 
   // Called once the command ends or is interrupted.

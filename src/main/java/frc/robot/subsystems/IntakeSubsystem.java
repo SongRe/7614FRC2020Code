@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -31,13 +32,15 @@ public class IntakeSubsystem extends SubsystemBase {
    * Intake
    */
   public void succ() {
-    motor.set(-0.5);
+    
+
+    motor.set(Constants.intakeSpeed * - 1);
   }
   /**
    * Spit out the power cells
    */
   public void blow() {
-    motor.set(0.5);
+    motor.set(Constants.intakeSpeed);
   }
 
   public void stop() {
