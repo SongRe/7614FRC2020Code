@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArmLiftCommand;
 import frc.robot.commands.ArmLowerCommand;
@@ -23,6 +24,7 @@ import frc.robot.commands.OuttakeCommand;
 import frc.robot.commands.SpinCommand;
 import frc.robot.commands.SpinStopCommand;
 import frc.robot.commands.TeleopDriveCommand;
+import frc.robot.commands.ToggleArmSpeedCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
@@ -56,14 +58,17 @@ public class RobotContainer {
   private final ArmLiftCommand liftArm = new ArmLiftCommand(arm);
   private final ArmLowerCommand lowerArm = new ArmLowerCommand(arm);
   private final ArmStopCommand stopArm = new ArmStopCommand(arm);
+  private final ToggleArmSpeedCommand toggleArmSpeed = new ToggleArmSpeedCommand();
 
   private final ClimbCommand climbCommand = new ClimbCommand(climbingThing);
   private final ExtendCommand extendCommand = new ExtendCommand(climbingThing);
+  private final ClimbStopCommand climbStop=new ClimbStopCommand(climbingThing);
+
+
   
   private final IntakeCommand intakeCommand = new IntakeCommand(succThing, controller);
   //private final OuttakeCommand spitOut = new OuttakeCommand(succThing);
   //private final IntakeStopCommand stopSucc = new IntakeStopCommand(succThing);
-  private final ClimbStopCommand climbStop=new ClimbStopCommand(climbingThing);
 
   private final SpinStopCommand spinStop=new SpinStopCommand(spinny);
   private final SpinCommand spinStart=new SpinCommand(spinny);
@@ -76,6 +81,7 @@ public class RobotContainer {
 
   //JoystickButton succButton   = new JoystickButton(controller, Constants.BUTTON_B);
   //JoystickButton spitButton   = new JoystickButton(controller, Constants.BUTTON_X);
+  JoystickButton toggleArmButton = new JoystickButton(controller, Constants.BUTTON_B);
   JoystickButton extendButton = new JoystickButton(controller, Constants.TRIGGER_R);
   JoystickButton climbButton = new JoystickButton(controller, Constants.TRIGGER_L);
   
@@ -110,6 +116,7 @@ public class RobotContainer {
     //spitButton.whenPressed(spitOut);
     //succButton.whenReleased(stopSucc);
     //spitButton.whenReleased(stopSucc);
+    toggleArmButton.whenPressed(toggleArmSpeed);
 
     extendButton.whenPressed(extendCommand);
     climbButton.whenPressed(climbCommand);
