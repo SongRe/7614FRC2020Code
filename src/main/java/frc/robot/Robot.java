@@ -20,7 +20,13 @@ import frc.robot.commands.AutonomousCommand;
  * project.
  */
 public class Robot extends TimedRobot {
-  private Command autonomousCommand;
+  private Command forwardAuto;
+  private Command backAuto;
+  private Command clockwiseAuto; 
+  private Command counterclockAuto;
+  private Command armLiftAuto;
+  private Command intakeAuto;
+  private Command outtakeAuto;
   // private TeleopDriveCommand driveCommand;
   // private XboxController controller=new XboxController(Constants.joystickPort);
   // private DriveTrainSubsystem drive=new DriveTrainSubsystem();
@@ -75,12 +81,24 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    autonomousCommand = m_robotContainer.getAutonomousCommand();
+    forwardAuto = m_robotContainer.getForwardAutoCommand();
+    backAuto=m_robotContainer.getBackAutoCommand();
+    clockwiseAuto=m_robotContainer.getTurnClockwiseCommand();
+    counterclockAuto = m_robotContainer.getTurnCounterClockwiseCommand();
+    armLiftAuto = m_robotContainer.getArmLiftCommand();
+    intakeAuto = m_robotContainer.getIntakeCommand();
+    outtakeAuto = m_robotContainer.getOuttakeCommand();
 
     // schedule the autonomous command (example)
-    if ((autonomousCommand) != null) {
-      autonomousCommand.withTimeout(3).execute();;
-    }
+    if ((forwardAuto) != null) {
+      backAuto.withTimeout(3).execute();
+      clockwiseAuto.withTimeout(1).schedule();
+      forwardAuto.withTimeout(3).schedule();
+
+
+      
+    } 
+    
   }
 
   /**
@@ -97,8 +115,8 @@ public class Robot extends TimedRobot {
     // continue until interrupted by another command, remove
     // this line or comment it out.
     //i may have screwed this up
-    if (autonomousCommand != null) {
-      autonomousCommand.end(true);
+    if (forwardAuto != null) {
+      forwardAuto.end(true);
     }
 
 

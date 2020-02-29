@@ -10,21 +10,25 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.ArmAutoCommand;
 import frc.robot.commands.ArmLiftCommand;
 import frc.robot.commands.ArmLowerCommand;
 import frc.robot.commands.ArmStopCommand;
+import frc.robot.commands.AutoDriveCommand;
 import frc.robot.commands.AutonomousCommand;
+import frc.robot.commands.IntakeAutoCommand;
+import frc.robot.commands.ArmAutoCommand;
 import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.ClimbStopCommand;
 import frc.robot.commands.ExtendCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.IntakeStopCommand;
-import frc.robot.commands.DriveForwardTimeoutCommand;
 import frc.robot.commands.OuttakeCommand;
 import frc.robot.commands.SpinCommand;
 import frc.robot.commands.SpinStopCommand;
 import frc.robot.commands.TeleopDriveCommand;
 import frc.robot.commands.ToggleArmSpeedCommand;
+import frc.robot.commands.TurnWithTimeoutCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
@@ -46,7 +50,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveTrainSubsystem driveTrain = new DriveTrainSubsystem();
   private final ArmSubsystem arm = new ArmSubsystem();
-  private final IntakeSubsystem succThing = new IntakeSubsystem();
+  private final IntakeSubsystem intakeSystem = new IntakeSubsystem();
   private final ClimbSubsystem climbingThing = new ClimbSubsystem();
   private final SpinSubsystem spinny=new SpinSubsystem();
 
@@ -66,26 +70,32 @@ public class RobotContainer {
 
 
   
-  private final IntakeCommand intakeCommand = new IntakeCommand(succThing, controller);
-  //private final OuttakeCommand spitOut = new OuttakeCommand(succThing);
-  //private final IntakeStopCommand stopSucc = new IntakeStopCommand(succThing);
+  private final IntakeCommand succIn= new IntakeCommand(intakeSystem, controller);
+  private final OuttakeCommand spitOut = new OuttakeCommand(intakeSystem);
+  private final IntakeStopCommand stopSucc = new IntakeStopCommand(intakeSystem);
 
   private final SpinStopCommand spinStop=new SpinStopCommand(spinny);
   private final SpinCommand spinStart=new SpinCommand(spinny);
   
-  private final DriveForwardTimeoutCommand autoCommand=new DriveForwardTimeoutCommand(driveTrain);
+  private final AutoDriveCommand forwardAutoCommand =new AutoDriveCommand(driveTrain, true);
+  private final AutoDriveCommand backAutoDriveCommand = new AutoDriveCommand(driveTrain, false);
+  private final TurnWithTimeoutCommand clockwiseAutoCommand = new TurnWithTimeoutCommand(driveTrain, true);
+  private final TurnWithTimeoutCommand counterClockAutoCommand = new TurnWithTimeoutCommand(driveTrain, false);
+  private final ArmAutoCommand liftAutoCommand = new ArmAutoCommand(arm);
+  private final IntakeAutoCommand intakeAutoCommand = new IntakeAutoCommand(intakeSystem, true);
+  private final IntakeAutoCommand outtakeAutoCommand = new IntakeAutoCommand(intakeSystem, false);
   //Buttons 2
   JoystickButton armUpButton = (JoystickButton) new JoystickButton(controller, Constants.BUTTON_Y);
-
   JoystickButton armDownButton = new JoystickButton(controller, Constants.BUTTON_A);
 
-  //JoystickButton succButton   = new JoystickButton(controller, Constants.BUTTON_B);
-  //JoystickButton spitButton   = new JoystickButton(controller, Constants.BUTTON_X);
-  JoystickButton toggleArmButton = new JoystickButton(controller, Constants.BUTTON_B);
+  JoystickButton succButton   = new JoystickButton(controller, Constants.BUTTON_B);
+  JoystickButton spitButton   = new JoystickButton(controller, Constants.BUTTON_X);
+
+  //JoystickButton toggleArmButton = new JoystickButton(controller, Constants.BUTTON_B);
   JoystickButton extendButton = new JoystickButton(controller, Constants.TRIGGER_R);
   JoystickButton climbButton = new JoystickButton(controller, Constants.TRIGGER_L);
   
-  JoystickButton spinButton = new JoystickButton(controller, Constants.BUTTON_X);
+  JoystickButton spinButton = new JoystickButton(controller, Constants.BACK);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -94,7 +104,7 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
     driveTrain.setDefaultCommand(driveCommand);
-    succThing.setDefaultCommand(intakeCommand);
+   // succThing.setDefaultCommand(intakeCommand);
   }
 
   /**
@@ -112,11 +122,11 @@ public class RobotContainer {
     armUpButton.whenReleased(stopArm);
     armDownButton.whenReleased(stopArm);
     
-    //succButton.whenPressed(succIn);
-    //spitButton.whenPressed(spitOut);
-    //succButton.whenReleased(stopSucc);
-    //spitButton.whenReleased(stopSucc);
-    toggleArmButton.whenPressed(toggleArmSpeed);
+    succButton.whenPressed(succIn);
+    spitButton.whenPressed(spitOut);
+    succButton.whenReleased(stopSucc);
+    spitButton.whenReleased(stopSucc);
+    //toggleArmButton.whenPressed(toggleArmSpeed);
 
     extendButton.whenPressed(extendCommand);
     climbButton.whenPressed(climbCommand);
@@ -147,10 +157,33 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    return autoCommand;
+  public Command getForwardAutoCommand() {
+    return forwardAutoCommand;
     // An ExampleCommand will run in autonomous
 
+  }
+  public Command getBackAutoCommand() {
+    return backAutoDriveCommand;
+  }
+
+  public Command getTurnClockwiseCommand(){
+    return clockwiseAutoCommand;
+  }
+
+  public Command getTurnCounterClockwiseCommand() {
+    return counterClockAutoCommand;
+  }
+
+  public Command getIntakeCommand() {
+    return intakeAutoCommand;
+  }
+
+  public Command getOuttakeCommand() {
+    return outtakeAutoCommand;
+  }
+
+  public Command getArmLiftCommand() {
+    return liftAutoCommand;
   }
 
 

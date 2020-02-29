@@ -7,21 +7,21 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class IntakeCommand extends CommandBase {
+public class IntakeAutoCommand extends CommandBase {
   IntakeSubsystem intakeSystem;
-  XboxController c;
+  boolean direction;
   /**
-   * Creates a new IntakeCommand.
+   * Creates a new IntakeAutoCommand.
+   * boolean dir dictates direction (true for intake, false for outtake)
    */
-  public IntakeCommand(IntakeSubsystem intakeSystem, XboxController c) {
+  public IntakeAutoCommand(IntakeSubsystem intakeSystem, boolean dir) {
     addRequirements(intakeSystem);
-    this.c = c;
     this.intakeSystem = intakeSystem;
+    direction = dir;
+
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -33,13 +33,17 @@ public class IntakeCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakeSystem.succ();
-
+    if(direction) {
+      intakeSystem.succ();
+    } else {
+      intakeSystem.blow();
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    intakeSystem.stop();
   }
 
   // Returns true when the command should end.

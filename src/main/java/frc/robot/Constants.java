@@ -28,7 +28,7 @@ public final class Constants {
     public static final int armPort = 2;
     public static final int intakePort = 5;
     public static final int climbPort = 3;
-    public static final int spinPort=8;
+    public static final int spinPort=7;
 
     public static final int leftEnc1 = 0;
     public static final int leftEnc2 = 1;

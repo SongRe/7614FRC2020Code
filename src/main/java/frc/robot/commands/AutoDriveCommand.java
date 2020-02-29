@@ -7,39 +7,48 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.DriveTrainSubsystem;
 
-public class IntakeCommand extends CommandBase {
-  IntakeSubsystem intakeSystem;
-  XboxController c;
+public class AutoDriveCommand extends CommandBase {
+
+  DriveTrainSubsystem driveTrain;
+  boolean direction;
   /**
-   * Creates a new IntakeCommand.
+   * Creates a new AutoDriveCOmmand
+   * boolean dictates direction (true for forward)
    */
-  public IntakeCommand(IntakeSubsystem intakeSystem, XboxController c) {
-    addRequirements(intakeSystem);
-    this.c = c;
-    this.intakeSystem = intakeSystem;
+  public AutoDriveCommand(DriveTrainSubsystem d, boolean dir) {
+    addRequirements(d);
+    direction = dir;
+
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    driveTrain.stopDriving();
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakeSystem.succ();
+    if(direction) {
+      driveTrain.tankDrive(0.5, 0.5);
 
+
+    } else {
+      driveTrain.tankDrive(-0.5, -0.5);
+
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    driveTrain.stopDriving();
   }
 
   // Returns true when the command should end.
