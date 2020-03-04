@@ -153,7 +153,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    autonomousCommand.end(true);
+    if(autonomousCommand != null) {
+      autonomousCommand.end(true);
+    }
      m_robotContainer.setDefaultDrive();
      m_robotContainer.setDefaultIntake();
 
