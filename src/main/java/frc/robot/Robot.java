@@ -39,6 +39,7 @@ public class Robot extends TimedRobot {
   private ArmAutoCommand armLiftAuto;
   private IntakeAutoCommand intakeAuto;
   private IntakeAutoCommand outtakeAuto;
+  private AutonomousCommand autonomousCommand;
   // private TeleopDriveCommand driveCommand;
   // private XboxController controller=new XboxController(Constants.joystickPort);
   // private DriveTrainSubsystem drive=new DriveTrainSubsystem();
@@ -119,22 +120,26 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     //forwardAuto = m_robotContainer.getForwardAutoCommand();
-     backAuto = m_robotContainer.getBackAutoCommand();
+    backAuto = m_robotContainer.getBackAutoCommand();
     // clockwiseAuto = m_robotContainer.getTurnClockwiseCommand();
     // counterclockAuto = m_robotContainer.getTurnCounterClockwiseCommand();
     // armLiftAuto = m_robotContainer.getArmLiftCommand();
     // intakeAuto = m_robotContainer.getIntakeCommand();
     // outtakeAuto = m_robotContainer.getOuttakeCommand();
+    autonomousCommand=m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
-    if ((backAuto) != null) {
-      backAuto.withTimeout(2).schedule();
+    if ((autonomousCommand) != null) {
+      autonomousCommand.withTimeout(2).execute();
       // if (clockwiseAuto != null) {
       //   clockwiseAuto.withTimeout(1).schedule();
       //   if (forwardAuto != null) {
       //     forwardAuto.withTimeout(3).schedule();
       //   }
       // }
+      if((backAuto) != null) {
+      //  backAuto.withTimeout(2).execute();
+      }
     }
 
   }
@@ -148,6 +153,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    autonomousCommand.end(true);
      m_robotContainer.setDefaultDrive();
      m_robotContainer.setDefaultIntake();
 
@@ -157,7 +163,7 @@ public class Robot extends TimedRobot {
     // this line or comment it out.
     // //i may have screwed this up
     if (backAuto != null) {
-      backAuto.cancel();;
+      backAuto.end(true);
     }
 
   }

@@ -78,12 +78,12 @@ public class DriveTrainSubsystem extends SubsystemBase {
 // /**
 //  * Distance is in meters
 //  */
-//   public void driveToDistance(double distance) {
-//     while(getDistance() < distance) {
-//       baseDrive.tankDrive(0.5, 0.5);
-//     }
-//     baseDrive.tankDrive(0, 0);
-//   }
+  public void driveToDistance(double distance) {
+    while(getDistance() < distance) {
+      baseDrive.tankDrive(0.3, 0.3);
+    }
+    baseDrive.tankDrive(0, 0);
+  }
 
   // /**
   //  * Turns the base to a certain angle. Positive degrees refers to left spin, negative to right spin 
@@ -112,73 +112,52 @@ public class DriveTrainSubsystem extends SubsystemBase {
     //baseDrive.arcadeDrive(xSpeed, zRotation);
   }
 
-//   /**
-//    * Raw average value of the encoders
-//    * @return
-//    */
-//   public double getRawAvg(){
-//     return (left.getRaw() + right.getRaw())/2;
-//   }
+  /**
+   * Raw average value of the encoders
+   * @return
+   */
+  public double getRawAvg(){
+    return (left.getRaw() + right.getRaw())/2;
+  }
 
-//   /**
-//    * Resets encoders
-//    */
-//   public void encReset(){
-// 		left.reset();
-// 		right.reset();
-//   }
+  /**
+   * Resets encoders
+   */
+  public void encReset(){
+		left.reset();
+		right.reset();
+  }
 
 
-//   /**
-//    * Get the forward distance travelled
-//    * @return
-//    */
-//   public double getDistance(){
-//     return getRawAvg() *0.035;
-//   }
+  /**
+   * Get the forward distance travelled
+   * @return
+   */
+  public double getDistance(){
+    return getRawAvg() *0.035;
+  }
 
-//   /**
-//    * Get the distance travelled by the left encoder
-//    * @return
-//    */
-//   public double getLeftDistance(){
-//     return left.getRaw()*0.035;
-//   }
-// //wheels are 15.24cm in diameter
-//   /**
-//   * Get the distance travelled by right encoder
-//   * @return
-//   */
-//   public double getRightDistance(){
-//     return right.getRaw()*0.0;
-//   }
+  /**
+   * Get the distance travelled by the left encoder
+   * @return
+   */
+  public double getLeftDistance(){
+    return left.getRaw()*0.035;
+  }
+//wheels are 15.24cm in diameter
+  /**
+  * Get the distance travelled by right encoder
+  * @return
+  */
+  public double getRightDistance(){
+    return right.getRaw()*0.0;
+  }
 
-  // public DifferentialDrive getDrive () {
-  //   return this.baseDrive;
-  // }
+  public DifferentialDrive getDrive () {
+    return this.baseDrive;
+  }
 
-//   public void teleopDrive(XboxController xbox) {
-//     // tells the drive train to drive based on a joystick
-//     // the first parameter is speed, the second angle of turn
-//     // the third parameter enables squared inputs, which "decreases sensitivity at
-//     // low speeds
-//     if(Robot.m_oi.turboOn){
-//         System.err.printf("turbo");
-//         base_drive.arcadeDrive(
-//             -xbox.getY(Hand.kLeft),
-//             xbox.getX(Hand.kLeft)/1.5,
-//             true
-//         );
-//     }else{
-//         System.err.printf("slow");
-//         double DEFANG = 5;
-//         base_drive.arcadeDrive(
-//             xbox.getX(Hand.kRight)/DEFANG,
-//             xbox.getY(Hand.kRight)/DEFANG,
-//             false
-//         );
-//     }
-    
-// }
+  
+   
 
 }

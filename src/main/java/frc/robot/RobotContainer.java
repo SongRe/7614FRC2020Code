@@ -68,7 +68,7 @@ public class RobotContainer {
   private final ExtendCommand extendCommand = new ExtendCommand(climbingThing);
   private final ClimbStopCommand climbStop=new ClimbStopCommand(climbingThing);
 
-
+private final AutonomousCommand autonomousCommand=new AutonomousCommand(arm, intakeSystem, driveTrain);
   
   //private final IntakeCommand succIn= new IntakeCommand(intakeSystem, controller);
   private final IntakeCommand intakeCommand = new IntakeCommand(intakeSystem, controller);
@@ -97,6 +97,7 @@ public class RobotContainer {
   JoystickButton climbButton = new JoystickButton(controller, Constants.TRIGGER_L);
   
   JoystickButton spinButton = new JoystickButton(controller, Constants.BUTTON_B);
+
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -187,6 +188,10 @@ public class RobotContainer {
     return liftAutoCommand;
   }
 
+  public AutonomousCommand getAutonomousCommand(){
+    return autonomousCommand;
+  }
+
   public void setDefaultDrive() {
     driveTrain.setDefaultCommand(driveCommand);
   }
@@ -195,6 +200,8 @@ public class RobotContainer {
     intakeSystem.setDefaultCommand(intakeCommand);
 
   }
+
+  
 
 
   

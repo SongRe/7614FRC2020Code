@@ -41,7 +41,7 @@ public class AutonomousCommand extends CommandBase {
    
     //how far you want it to go? Now i need actual measurements
     //turn first so we can move on an angle
-    //driveSystem.driveToDistance(1);
+    driveSystem.driveToDistance(1);
         
     
    
