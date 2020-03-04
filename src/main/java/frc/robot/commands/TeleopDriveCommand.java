@@ -37,7 +37,8 @@ public class TeleopDriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      d.teleopDrive(controller);
+      //d.teleopDrive(controller);
+      d.tankDrive(controller);
       
   }
 

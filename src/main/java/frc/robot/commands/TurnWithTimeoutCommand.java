@@ -16,10 +16,10 @@ public class TurnWithTimeoutCommand extends CommandBase {
    * dir dictates turning direction, true for clockwise, false for counterclockwise
    */
   DriveTrainSubsystem driveTrain;
-  boolean direction;
+  boolean direction=true;
   public TurnWithTimeoutCommand(DriveTrainSubsystem d, boolean dir) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(driveTrain);
+    addRequirements(d);
     driveTrain=d;
     direction=dir;
 

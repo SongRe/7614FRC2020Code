@@ -70,7 +70,8 @@ public class RobotContainer {
 
 
   
-  private final IntakeCommand succIn= new IntakeCommand(intakeSystem, controller);
+  //private final IntakeCommand succIn= new IntakeCommand(intakeSystem, controller);
+  private final IntakeCommand intakeCommand = new IntakeCommand(intakeSystem, controller);
   private final OuttakeCommand spitOut = new OuttakeCommand(intakeSystem);
   private final IntakeStopCommand stopSucc = new IntakeStopCommand(intakeSystem);
 
@@ -88,14 +89,14 @@ public class RobotContainer {
   JoystickButton armUpButton = (JoystickButton) new JoystickButton(controller, Constants.BUTTON_Y);
   JoystickButton armDownButton = new JoystickButton(controller, Constants.BUTTON_A);
 
-  JoystickButton succButton   = new JoystickButton(controller, Constants.BUTTON_B);
-  JoystickButton spitButton   = new JoystickButton(controller, Constants.BUTTON_X);
+  // JoystickButton succButton   = new JoystickButton(controller, Constants.BUTTON_B);
+  // JoystickButton spitButton   = new JoystickButton(controller, Constants.BUTTON_X);
 
   //JoystickButton toggleArmButton = new JoystickButton(controller, Constants.BUTTON_B);
   JoystickButton extendButton = new JoystickButton(controller, Constants.TRIGGER_R);
   JoystickButton climbButton = new JoystickButton(controller, Constants.TRIGGER_L);
   
-  JoystickButton spinButton = new JoystickButton(controller, Constants.BACK);
+  JoystickButton spinButton = new JoystickButton(controller, Constants.BUTTON_B);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -103,8 +104,8 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    driveTrain.setDefaultCommand(driveCommand);
-   // succThing.setDefaultCommand(intakeCommand);
+    // driveTrain.setDefaultCommand(driveCommand);
+    //intakeSystem.setDefaultCommand(intakeCommand);
   }
 
   /**
@@ -122,10 +123,10 @@ public class RobotContainer {
     armUpButton.whenReleased(stopArm);
     armDownButton.whenReleased(stopArm);
     
-    succButton.whenPressed(succIn);
-    spitButton.whenPressed(spitOut);
-    succButton.whenReleased(stopSucc);
-    spitButton.whenReleased(stopSucc);
+    // succButton.whenPressed(succIn);
+    // spitButton.whenPressed(spitOut);
+    // succButton.whenReleased(stopSucc);
+    // spitButton.whenReleased(stopSucc);
     //toggleArmButton.whenPressed(toggleArmSpeed);
 
     extendButton.whenPressed(extendCommand);
@@ -157,33 +158,42 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getForwardAutoCommand() {
+  public AutoDriveCommand getForwardAutoCommand() {
     return forwardAutoCommand;
     // An ExampleCommand will run in autonomous
 
   }
-  public Command getBackAutoCommand() {
+  public AutoDriveCommand getBackAutoCommand() {
     return backAutoDriveCommand;
   }
 
-  public Command getTurnClockwiseCommand(){
+  public TurnWithTimeoutCommand getTurnClockwiseCommand(){
     return clockwiseAutoCommand;
   }
 
-  public Command getTurnCounterClockwiseCommand() {
+  public TurnWithTimeoutCommand getTurnCounterClockwiseCommand() {
     return counterClockAutoCommand;
   }
 
-  public Command getIntakeCommand() {
+  public IntakeAutoCommand getIntakeCommand() {
     return intakeAutoCommand;
   }
 
-  public Command getOuttakeCommand() {
+  public IntakeAutoCommand getOuttakeCommand() {
     return outtakeAutoCommand;
   }
 
-  public Command getArmLiftCommand() {
+  public ArmAutoCommand getArmLiftCommand() {
     return liftAutoCommand;
+  }
+
+  public void setDefaultDrive() {
+    driveTrain.setDefaultCommand(driveCommand);
+  }
+
+  public void setDefaultIntake() {
+    intakeSystem.setDefaultCommand(intakeCommand);
+
   }
 
 

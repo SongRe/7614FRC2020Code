@@ -12,7 +12,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 
 public class IntakeAutoCommand extends CommandBase {
   IntakeSubsystem intakeSystem;
-  boolean direction;
+  boolean direction = true;
   /**
    * Creates a new IntakeAutoCommand.
    * boolean dir dictates direction (true for intake, false for outtake)

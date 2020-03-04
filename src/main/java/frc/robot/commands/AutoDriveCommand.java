@@ -13,7 +13,7 @@ import frc.robot.subsystems.DriveTrainSubsystem;
 public class AutoDriveCommand extends CommandBase {
 
   DriveTrainSubsystem driveTrain;
-  boolean direction;
+  boolean direction = true;
   /**
    * Creates a new AutoDriveCOmmand
    * boolean dictates direction (true for forward)
@@ -36,11 +36,11 @@ public class AutoDriveCommand extends CommandBase {
   @Override
   public void execute() {
     if(direction) {
-      driveTrain.tankDrive(0.5, 0.5);
+      driveTrain.autoDrive(0.5, 0);
 
 
     } else {
-      driveTrain.tankDrive(-0.5, -0.5);
+      driveTrain.autoDrive(-0.5, 0);
 
     }
   }

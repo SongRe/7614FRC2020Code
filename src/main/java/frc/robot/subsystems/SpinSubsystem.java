@@ -27,7 +27,7 @@ public class SpinSubsystem extends SubsystemBase {
   }
 
   public void spin() {
-    motor.set(-Constants.generalSpeed*0.5);
+    motor.set(-Constants.generalSpeed);
   }
 
 

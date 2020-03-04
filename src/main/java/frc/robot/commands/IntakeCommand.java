@@ -33,7 +33,13 @@ public class IntakeCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakeSystem.succ();
+    if(c.getTriggerAxis(Hand.kRight) > 0) {
+      intakeSystem.succ();
+    } else if(c.getTriggerAxis(Hand.kLeft) > 0) {
+      intakeSystem.blow();
+    } else {
+      intakeSystem.stop();
+    }
 
   }
 

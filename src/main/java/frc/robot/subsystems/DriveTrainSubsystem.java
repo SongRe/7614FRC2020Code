@@ -43,10 +43,18 @@ public class DriveTrainSubsystem extends SubsystemBase {
    * Creates a new DriveTrainSubsystem.
    */
   public DriveTrainSubsystem() {
+    leftMaster.setSafetyEnabled(false);
+    leftSlave.setSafetyEnabled(false);
+    rightMaster.setSafetyEnabled(false);
+    rightSlave.setSafetyEnabled(false);
+    
     
     
 
   }
+
+  
+
 
 
   //
@@ -60,6 +68,10 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   public void tankDrive(double leftSpeed, double rightSpeed) {
     baseDrive.tankDrive(leftSpeed, rightSpeed);
+  }
+
+  public void tankDrive(XboxController controller) {
+    baseDrive.tankDrive(- controller.getY(Hand.kLeft) , - controller.getY(Hand.kRight));
   }
 
   
@@ -90,7 +102,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   // }
 
   public void stopDriving(){
-    baseDrive.tankDrive(0,0);
+    baseDrive.stopMotor();
   }
 
   @Override
