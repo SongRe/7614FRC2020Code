@@ -130,17 +130,17 @@ public class Robot extends TimedRobot {
 
     // schedule the autonomous command (example)
     if ((autonomousCommand) != null) {
-      autonomousCommand.withTimeout(2).execute();
+      autonomousCommand.withTimeout(2).schedule();
       // if (clockwiseAuto != null) {
       //   clockwiseAuto.withTimeout(1).schedule();
       //   if (forwardAuto != null) {
       //     forwardAuto.withTimeout(3).schedule();
       //   }
-      // }
+       }
       if((backAuto) != null) {
       //  backAuto.withTimeout(2).execute();
       }
-    }
+    
 
   }
 
@@ -154,8 +154,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     if(autonomousCommand != null) {
-      autonomousCommand.end(true);
+      autonomousCommand.cancel();
     }
+     
      m_robotContainer.setDefaultDrive();
      m_robotContainer.setDefaultIntake();
 
