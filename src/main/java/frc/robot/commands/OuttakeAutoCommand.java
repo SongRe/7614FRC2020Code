@@ -8,47 +8,35 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrainSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
-public class AutoDriveCommand extends CommandBase {
-
-  DriveTrainSubsystem driveTrain;
-  boolean direction = true;
+public class OuttakeAutoCommand extends CommandBase {
   /**
-   * Creates a new AutoDriveCOmmand
-   * boolean dictates direction (true for forward)
+   * Creates a new OuttakeAutoCommand.
    */
-  public AutoDriveCommand(DriveTrainSubsystem d, boolean dir) {
-    addRequirements(d);
-    direction = dir;
-
+  IntakeSubsystem intakeSystem;
+  
+  public OuttakeAutoCommand(IntakeSubsystem intakeSubsystem) {
+    addRequirements(intakeSubsystem);
+    intakeSystem = intakeSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    driveTrain.stopDriving();
-    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(direction) {
-      driveTrain.autoDrive(0.5, 0);
-
-
-    } else {
-      driveTrain.autoDrive(-0.5, 0);
-
-    }
+    intakeSystem.blow();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    driveTrain.stopDriving();
+    intakeSystem.stop();
   }
 
   // Returns true when the command should end.

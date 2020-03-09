@@ -32,6 +32,7 @@ public class AutonomousCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+   // System.out.println("autonomousCommand has been initialized");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -41,18 +42,14 @@ public class AutonomousCommand extends CommandBase {
    
     //how far you want it to go? Now i need actual measurements
     //turn first so we can move on an angle
-    driveSystem.driveToDistance(1);
-        
-    
-   
-    
+    driveSystem.autoTankDrive();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    driveSystem.autoDrive(0,0);
-    driveSystem.stopDriving();
+    // driveSystem.autoDrive(0,0);
+     driveSystem.stopDriving();
   }
 
   // Returns true when the command should end.

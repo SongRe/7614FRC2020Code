@@ -11,11 +11,12 @@ import edu.wpi.first.wpilibj.TimedRobot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.ArmAutoCommand;
-import frc.robot.commands.AutoDriveCommand;
+
+
 import frc.robot.commands.AutonomousCommand;
-import frc.robot.commands.IntakeAutoCommand;
-import frc.robot.commands.TurnWithTimeoutCommand;
+
+import frc.robot.commands.OuttakeAutoCommand;
+
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.cscore.CvSink;
@@ -32,14 +33,16 @@ import org.opencv.imgproc.Imgproc;
  * project.
  */
 public class Robot extends TimedRobot {
-  private AutoDriveCommand forwardAuto;
-  private AutoDriveCommand backAuto;
-  private TurnWithTimeoutCommand clockwiseAuto;
-  private TurnWithTimeoutCommand counterclockAuto;
-  private ArmAutoCommand armLiftAuto;
-  private IntakeAutoCommand intakeAuto;
-  private IntakeAutoCommand outtakeAuto;
+  // private AutoDriveCommand forwardAuto;
+  // private AutoDriveCommand backAuto;
+  // private TurnWithTimeoutCommand clockwiseAuto;
+  // private TurnWithTimeoutCommand counterclockAuto;
+  // private ArmAutoCommand armLiftAuto;
+  // private IntakeAutoCommand intakeAuto;
+  // private IntakeAutoCommand outtakeAuto;
+  private OuttakeAutoCommand outtakeNewAuto;
   private AutonomousCommand autonomousCommand;
+  //private DoNothing not;
   // private TeleopDriveCommand driveCommand;
   // private XboxController controller=new XboxController(Constants.joystickPort);
   // private DriveTrainSubsystem drive=new DriveTrainSubsystem();
@@ -120,26 +123,27 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     //forwardAuto = m_robotContainer.getForwardAutoCommand();
-    backAuto = m_robotContainer.getBackAutoCommand();
+    //backAuto = m_robotContainer.getBackAutoCommand();
     // clockwiseAuto = m_robotContainer.getTurnClockwiseCommand();
     // counterclockAuto = m_robotContainer.getTurnCounterClockwiseCommand();
     // armLiftAuto = m_robotContainer.getArmLiftCommand();
     // intakeAuto = m_robotContainer.getIntakeCommand();
     // outtakeAuto = m_robotContainer.getOuttakeCommand();
-    autonomousCommand=m_robotContainer.getAutonomousCommand();
+   // autonomousCommand=m_robotContainer.getAutonomousCommand();
+    outtakeNewAuto=m_robotContainer.getOuttakeCommand();
+    //not=m_robotContainer.getNothing();
 
+    // if(not != null) {
+    //   not.withTimeout(2).execute();
+    // }
     // schedule the autonomous command (example)
-    if ((autonomousCommand) != null) {
-      autonomousCommand.withTimeout(2).schedule();
-      // if (clockwiseAuto != null) {
-      //   clockwiseAuto.withTimeout(1).schedule();
-      //   if (forwardAuto != null) {
-      //     forwardAuto.withTimeout(3).schedule();
-      //   }
+    if ((outtakeNewAuto) != null) {
+      outtakeNewAuto.withTimeout(10).execute();
        }
-      if((backAuto) != null) {
-      //  backAuto.withTimeout(2).execute();
-      }
+      // CommandScheduler.getInstance().cancelAll();
+      // if((autonomousCommand) != null) {
+      //   autonomousCommand.withTimeout(3).;
+      // }
     
 
   }
@@ -149,12 +153,18 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    //i added this for testing purposes
+    CommandScheduler.getInstance().run();
   }
 
   @Override
   public void teleopInit() {
+   // CommandScheduler.getInstance().cancelAll();
     if(autonomousCommand != null) {
       autonomousCommand.cancel();
+    }
+    if(outtakeNewAuto != null){
+      outtakeNewAuto.cancel();
     }
      
      m_robotContainer.setDefaultDrive();
@@ -165,9 +175,9 @@ public class Robot extends TimedRobot {
     // continue until interrupted by another command, remove
     // this line or comment it out.
     // //i may have screwed this up
-    if (backAuto != null) {
-      backAuto.end(true);
-    }
+    // if (backAuto != null) {
+    //   backAuto.end(true);
+    // }
 
   }
 

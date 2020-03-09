@@ -42,16 +42,16 @@ public class DriveTrainSubsystem extends SubsystemBase {
   /**
    * Creates a new DriveTrainSubsystem.
    */
-  public DriveTrainSubsystem() {
-    leftMaster.setSafetyEnabled(false);
-    leftSlave.setSafetyEnabled(false);
-    rightMaster.setSafetyEnabled(false);
-    rightSlave.setSafetyEnabled(false);
+  // public DriveTrainSubsystem() {
+  //   leftMaster.setSafetyEnabled(false);
+  //   leftSlave.setSafetyEnabled(false);
+  //   rightMaster.setSafetyEnabled(false);
+  //   rightSlave.setSafetyEnabled(false);
     
     
     
 
-  }
+  // }
 
   
 
@@ -59,15 +59,15 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   //
   public void teleopDrive(XboxController controller) {
-    baseDrive.arcadeDrive(-controller.getY(Hand.kLeft), controller.getX(Hand.kLeft));
+    baseDrive.arcadeDrive(-controller.getY(Hand.kLeft), controller.getX(Hand.kLeft)); //square x axis input
   }
 
   public void autoDrive(double forwardSpeed, double horizontalSpeed){
     baseDrive.arcadeDrive(forwardSpeed, horizontalSpeed);
   }
 
-  public void tankDrive(double leftSpeed, double rightSpeed) {
-    baseDrive.tankDrive(leftSpeed, rightSpeed);
+  public void autoTankDrive() {
+    baseDrive.tankDrive(-0.5, -0.5);
   }
 
   public void tankDrive(XboxController controller) {
@@ -79,10 +79,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
 //  * Distance is in meters
 //  */
   public void driveToDistance(double distance) {
-    while(getDistance() < distance) {
-      baseDrive.tankDrive(0.3, 0.3);
-    }
-    baseDrive.tankDrive(0, 0);
+   baseDrive.tankDrive(0.3, 0.3);
+   // baseDrive.tankDrive(0, 0);
   }
 
   // /**
@@ -102,7 +100,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   // }
 
   public void stopDriving(){
-    baseDrive.stopMotor();
+    baseDrive.arcadeDrive(0,0);
   }
 
   @Override

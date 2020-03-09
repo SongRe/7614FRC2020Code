@@ -8,22 +8,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrainSubsystem;
+import frc.robot.subsystems.ClimbSubsystem;
 
-public class TurnWithTimeoutCommand extends CommandBase {
+public class SpringStopCommand extends CommandBase {
+  ClimbSubsystem climbSubsystem;
   /**
-   * Creates a new TurnWithTimeoutCommand.
-   * dir dictates turning direction, true for clockwise, false for counterclockwise
+   * Creates a new SpringStopCommand.
    */
-  DriveTrainSubsystem driveTrain;
-  boolean direction=true;
-  public TurnWithTimeoutCommand(DriveTrainSubsystem d, boolean dir) {
+  public SpringStopCommand(ClimbSubsystem c) {
+    addRequirements(c);
+    climbSubsystem = c;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(d);
-    driveTrain=d;
-    direction=dir;
-
-
   }
 
   // Called when the command is initially scheduled.
@@ -34,19 +29,12 @@ public class TurnWithTimeoutCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(direction) { //clockwise
-      driveTrain.tankDrive(0.5, -0.5);
-
-
-    } else { //counterclockwise
-      driveTrain.tankDrive(-0.5, 0.5);
-    }
+    climbSubsystem.springStop();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    driveTrain.stopDriving();
   }
 
   // Returns true when the command should end.

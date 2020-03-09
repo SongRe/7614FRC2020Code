@@ -10,25 +10,27 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ArmAutoCommand;
+
 import frc.robot.commands.ArmLiftCommand;
 import frc.robot.commands.ArmLowerCommand;
 import frc.robot.commands.ArmStopCommand;
-import frc.robot.commands.AutoDriveCommand;
+
 import frc.robot.commands.AutonomousCommand;
-import frc.robot.commands.IntakeAutoCommand;
-import frc.robot.commands.ArmAutoCommand;
+
+
 import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.ClimbStopCommand;
 import frc.robot.commands.ExtendCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.IntakeStopCommand;
+import frc.robot.commands.OuttakeAutoCommand;
 import frc.robot.commands.OuttakeCommand;
 import frc.robot.commands.SpinCommand;
 import frc.robot.commands.SpinStopCommand;
+import frc.robot.commands.SpringRetractCommand;
+import frc.robot.commands.SpringStopCommand;
 import frc.robot.commands.TeleopDriveCommand;
 import frc.robot.commands.ToggleArmSpeedCommand;
-import frc.robot.commands.TurnWithTimeoutCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
@@ -51,7 +53,7 @@ public class RobotContainer {
   private final DriveTrainSubsystem driveTrain = new DriveTrainSubsystem();
   private final ArmSubsystem arm = new ArmSubsystem();
   private final IntakeSubsystem intakeSystem = new IntakeSubsystem();
-  private final ClimbSubsystem climbingThing = new ClimbSubsystem();
+  private final ClimbSubsystem climbSubsystem = new ClimbSubsystem();
   private final SpinSubsystem spinny=new SpinSubsystem();
 
 
@@ -64,12 +66,13 @@ public class RobotContainer {
   private final ArmStopCommand stopArm = new ArmStopCommand(arm);
   private final ToggleArmSpeedCommand toggleArmSpeed = new ToggleArmSpeedCommand();
 
-  private final ClimbCommand climbCommand = new ClimbCommand(climbingThing);
-  private final ExtendCommand extendCommand = new ExtendCommand(climbingThing);
-  private final ClimbStopCommand climbStop=new ClimbStopCommand(climbingThing);
+  private final ClimbCommand climbCommand = new ClimbCommand(climbSubsystem);
+  private final ExtendCommand extendCommand = new ExtendCommand(climbSubsystem);
+  private final ClimbStopCommand climbStop=new ClimbStopCommand(climbSubsystem);
 
-private final AutonomousCommand autonomousCommand=new AutonomousCommand(arm, intakeSystem, driveTrain);
-  
+  private final AutonomousCommand autonomousCommand=new AutonomousCommand(arm, intakeSystem, driveTrain);
+  private final OuttakeAutoCommand outtakeCommand=new OuttakeAutoCommand(intakeSystem);
+
   //private final IntakeCommand succIn= new IntakeCommand(intakeSystem, controller);
   private final IntakeCommand intakeCommand = new IntakeCommand(intakeSystem, controller);
   private final OuttakeCommand spitOut = new OuttakeCommand(intakeSystem);
@@ -77,20 +80,24 @@ private final AutonomousCommand autonomousCommand=new AutonomousCommand(arm, int
 
   private final SpinStopCommand spinStop=new SpinStopCommand(spinny);
   private final SpinCommand spinStart=new SpinCommand(spinny);
+
+  private final SpringRetractCommand springSpin = new SpringRetractCommand(climbSubsystem, true);
+  private final SpringRetractCommand springSpinOtherWay = new SpringRetractCommand(climbSubsystem, false);
+  private final SpringStopCommand springStop = new SpringStopCommand(climbSubsystem);
   
-  private final AutoDriveCommand forwardAutoCommand =new AutoDriveCommand(driveTrain, true);
-  private final AutoDriveCommand backAutoDriveCommand = new AutoDriveCommand(driveTrain, false);
-  private final TurnWithTimeoutCommand clockwiseAutoCommand = new TurnWithTimeoutCommand(driveTrain, true);
-  private final TurnWithTimeoutCommand counterClockAutoCommand = new TurnWithTimeoutCommand(driveTrain, false);
-  private final ArmAutoCommand liftAutoCommand = new ArmAutoCommand(arm);
-  private final IntakeAutoCommand intakeAutoCommand = new IntakeAutoCommand(intakeSystem, true);
-  private final IntakeAutoCommand outtakeAutoCommand = new IntakeAutoCommand(intakeSystem, false);
+  // private final AutoDriveCommand forwardAutoCommand =new AutoDriveCommand(driveTrain, true);
+  // private final AutoDriveCommand backAutoDriveCommand = new AutoDriveCommand(driveTrain, false);
+  // private final TurnWithTimeoutCommand clockwiseAutoCommand = new TurnWithTimeoutCommand(driveTrain, true);
+  // private final TurnWithTimeoutCommand counterClockAutoCommand = new TurnWithTimeoutCommand(driveTrain, false);
+  // private final ArmAutoCommand liftAutoCommand = new ArmAutoCommand(arm);
+  // private final IntakeAutoCommand intakeAutoCommand = new IntakeAutoCommand(intakeSystem, true);
+  //private final IntakeAutoCommand outtakeAutoCommand = new IntakeAutoCommand(intakeSystem, false);
   //Buttons 2
   JoystickButton armUpButton = (JoystickButton) new JoystickButton(controller, Constants.BUTTON_Y);
   JoystickButton armDownButton = new JoystickButton(controller, Constants.BUTTON_A);
 
-  // JoystickButton succButton   = new JoystickButton(controller, Constants.BUTTON_B);
-  // JoystickButton spitButton   = new JoystickButton(controller, Constants.BUTTON_X);
+  JoystickButton springTightButton  = new JoystickButton(controller, Constants.BUTTON_B);
+  JoystickButton springLooseButton   = new JoystickButton(controller, Constants.BUTTON_X);
 
   //JoystickButton toggleArmButton = new JoystickButton(controller, Constants.BUTTON_B);
   JoystickButton extendButton = new JoystickButton(controller, Constants.TRIGGER_R);
@@ -98,7 +105,7 @@ private final AutonomousCommand autonomousCommand=new AutonomousCommand(arm, int
   
   JoystickButton spinButton = new JoystickButton(controller, Constants.BUTTON_B);
 
-
+  JoystickButton testButton = new JoystickButton(controller, Constants.BACK);
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -124,6 +131,11 @@ private final AutonomousCommand autonomousCommand=new AutonomousCommand(arm, int
     armUpButton.whenReleased(stopArm);
     armDownButton.whenReleased(stopArm);
     
+    springTightButton.whenPressed(springSpin);
+    springLooseButton.whenPressed(springSpinOtherWay);
+    springTightButton.whenReleased(springStop);
+    springLooseButton.whenReleased(springStop);
+    
     // succButton.whenPressed(succIn);
     // spitButton.whenPressed(spitOut);
     // succButton.whenReleased(stopSucc);
@@ -138,6 +150,7 @@ private final AutonomousCommand autonomousCommand=new AutonomousCommand(arm, int
     spinButton.whenPressed(spinStart);
     spinButton.whenReleased(spinStop);
     
+   // testButton.whenPressed(autonomousCommand);
 //      // Grab the hatch when the 'A' button is pressed.
 //      new JoystickButton(m_driverController, Button.kA.value)
 //      .whenPressed(new GrabHatch(m_hatchSubsystem));
@@ -159,39 +172,43 @@ private final AutonomousCommand autonomousCommand=new AutonomousCommand(arm, int
    *
    * @return the command to run in autonomous
    */
-  public AutoDriveCommand getForwardAutoCommand() {
-    return forwardAutoCommand;
-    // An ExampleCommand will run in autonomous
+  // public AutoDriveCommand getForwardAutoCommand() {
+  //   return forwardAutoCommand;
+  //   // An ExampleCommand will run in autonomous
 
-  }
-  public AutoDriveCommand getBackAutoCommand() {
-    return backAutoDriveCommand;
-  }
+  // }
+  // public AutoDriveCommand getBackAutoCommand() {
+  //   return backAutoDriveCommand;
+  // }
 
-  public TurnWithTimeoutCommand getTurnClockwiseCommand(){
-    return clockwiseAutoCommand;
-  }
+  // public TurnWithTimeoutCommand getTurnClockwiseCommand(){
+  //   return clockwiseAutoCommand;
+  // }
 
-  public TurnWithTimeoutCommand getTurnCounterClockwiseCommand() {
-    return counterClockAutoCommand;
-  }
+  // public TurnWithTimeoutCommand getTurnCounterClockwiseCommand() {
+  //   return counterClockAutoCommand;
+  // }
 
-  public IntakeAutoCommand getIntakeCommand() {
-    return intakeAutoCommand;
-  }
+  // public IntakeAutoCommand getIntakeCommand() {
+  //   return intakeAutoCommand;
+  // }
 
-  public IntakeAutoCommand getOuttakeCommand() {
+ /* public IntakeAutoCommand getOuttakeCommand() {
     return outtakeAutoCommand;
-  }
+  }*/
 
-  public ArmAutoCommand getArmLiftCommand() {
-    return liftAutoCommand;
+  public OuttakeAutoCommand getOuttakeCommand(){
+    return outtakeCommand;
   }
+  
+  // public ArmAutoCommand getArmLiftCommand() {
+  //   return liftAutoCommand;
+  // }
 
   public AutonomousCommand getAutonomousCommand(){
-    return autonomousCommand;
+    return new AutonomousCommand(arm, intakeSystem, driveTrain);
   }
-
+ 
   public void setDefaultDrive() {
     driveTrain.setDefaultCommand(driveCommand);
   }
@@ -200,6 +217,7 @@ private final AutonomousCommand autonomousCommand=new AutonomousCommand(arm, int
     intakeSystem.setDefaultCommand(intakeCommand);
 
   }
+
 
   
 

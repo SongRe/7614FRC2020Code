@@ -14,7 +14,8 @@ import frc.robot.Constants;
 
 public class ClimbSubsystem extends SubsystemBase {
 
-  WPI_VictorSPX motor = new WPI_VictorSPX(Constants.climbPort);
+  WPI_VictorSPX mainMotor = new WPI_VictorSPX(Constants.climbPort);
+  WPI_VictorSPX springMotor = new WPI_VictorSPX(Constants.spinPort);
   /**
    * Creates a new ClimbSubsystem.
    */
@@ -28,14 +29,23 @@ public class ClimbSubsystem extends SubsystemBase {
   }
 
   public void extend() {
-    motor.set(Constants.generalSpeed*2);
+    mainMotor.set(Constants.generalSpeed*2);
   }
 
   public void climb() {
-    motor.set(Constants.generalSpeed * -2);
+    mainMotor.set(Constants.generalSpeed * -2);
+    
   }
 
   public void stop() {
-    motor.set(0);
+    mainMotor.set(0);
+  }
+
+  public void springRetract(int dir) {
+    springMotor.set(Constants.generalSpeed * dir);
+  }
+
+  public void springStop() {
+    springMotor.stopMotor();
   }
 }

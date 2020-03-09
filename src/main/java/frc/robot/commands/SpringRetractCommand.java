@@ -8,16 +8,20 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ClimbSubsystem;
 
-public class ArmAutoCommand extends CommandBase {
-  ArmSubsystem armSystem;
+public class SpringRetractCommand extends CommandBase {
+  ClimbSubsystem climbSubsystem;
+  boolean dir;
   /**
-   * Creates a new ArmAutoCommand.
+   * Creates a new SpringRetractCommand.
+   * Requires climbsubsystem c, and direction
+   * @direction - true or false spins clockwise and counterclockwise
    */
-  public ArmAutoCommand(ArmSubsystem armSystem) {
-    addRequirements(armSystem);
-    this.armSystem = armSystem;
+  public SpringRetractCommand(ClimbSubsystem c, boolean direction) {
+    addRequirements(c);
+    climbSubsystem = c;
+    dir = direction;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -29,13 +33,17 @@ public class ArmAutoCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    armSystem.lift();
+    if(dir) {
+      climbSubsystem.springRetract(1);
+    } else {
+      climbSubsystem.springRetract(-1);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    armSystem.stop();
+    climbSubsystem.stop();
   }
 
   // Returns true when the command should end.
